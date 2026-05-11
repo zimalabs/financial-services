@@ -62,11 +62,11 @@ Citations should name the local file exactly as it appears in the working direct
 **REQUIRED SOURCES (only include those actually present in CWD):**
 
 - ✅ Earnings release file (e.g., `*release*.pdf`, `*earnings*.pdf`)
-- ✅ 10-Q or 10-K filing (e.g., `*10-Q*.pdf`)
-- ✅ Earnings call transcript (e.g., `*transcript*.txt`, `*call*.txt`)
-- ✅ Investor presentation / supplemental materials (e.g., `*presentation*.pdf`)
-- ✅ Consensus estimates file (e.g., `*consensus*.xlsx`, `*estimates*.csv`) — only if provided
-- ✅ Prior-period file for prior guidance comparison — only if provided
+- ✅ 10-Q or 10-K filing (e.g., `*10-Q*.pdf`, `*10-K*.pdf`) — only if filed at the time of analysis
+- ✅ Prepared remarks (e.g., `*prepared-remarks*.txt`)
+- ✅ Investor presentation / supplemental materials (e.g., `*presentation*.pdf`, `*deck.pdf`) — only if provided
+- ✅ Initiating coverage reports (e.g., `*initiating_report.pdf`) — only if provided
+- ✅ Prior-period files — only if provided
 
 If any of these are **missing from CWD**, flag them explicitly in the report's Sources section as "not provided" and mark dependent analysis sections as "N/A — [document type] not provided".
 
