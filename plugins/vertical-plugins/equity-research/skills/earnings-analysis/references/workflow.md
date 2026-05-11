@@ -2,216 +2,106 @@
 
 This document provides detailed step-by-step instructions for each phase of the earnings update process.
 
-## ⚠️⚠️⚠️ CRITICAL WARNING: ALWAYS USE THE LATEST EARNINGS DATA ⚠️⚠️⚠️
+## ⚠️ LOCAL-ONLY: USE FILES IN THE WORKING DIRECTORY ⚠️
 
-**STOP AND READ THIS FIRST:**
+This skill uses **only local files** in the working directory. Do not web-search for earnings materials, IR pages, EDGAR filings, or transcripts. Do not call WebSearch or WebFetch. If a needed document is not present locally, flag the gap in the report and proceed with what is available.
 
-Training data is OUTDATED. Actively search for and retrieve the MOST RECENT earnings materials. Using outdated earnings data is the #1 mistake in earnings analysis.
+The "latest" earnings period is whichever period is stamped on the documents the user has placed in CWD — never override that with a guess based on today's date or training-data recollection.
 
-**BEFORE STARTING:**
-1. **CHECK TODAY'S DATE** - Write down the current date
-2. **SEARCH FOR LATEST** - Use web search to find the most recent earnings
-3. **VERIFY THE DATE** - Confirm the earnings release is within the last 3 months
-4. **IF OLDER THAN 3 MONTHS** - Wrong quarter obtained, search again
+## Phase 1: Earnings Data Collection (15-30 minutes)
 
-## Phase 1: Earnings Data Collection (30-60 minutes)
+### Step 1: Inventory Local Earnings Materials
 
-### Step 1: Identify the Latest Earnings Period
+**Step 1a: List files in the working directory**
 
-**CRITICAL**: ALWAYS SEARCH FOR THE LATEST EARNINGS - DO NOT RELY ON KNOWLEDGE CUTOFF.
-**CRITICAL**: NEVER USE EARNINGS DATA FROM TRAINING - IT IS OUTDATED.
+Use the LS / Glob / Read tools to enumerate every file in CWD (and any subdirectory the user explicitly points to). Do not look outside CWD.
 
-**Step 1a: Search for Latest Earnings Release**
+**Step 1b: Classify each file by document type**
 
-**🚨 ACTIVELY SEARCH - training data is outdated. 🚨**
+Match filenames against these patterns, then peek at the first ~50 lines of each candidate to confirm the content type and read the actual release/quarter date stamped inside the document.
 
-**MANDATORY STEP 1: CHECK TODAY'S DATE**
-- **Write down today's date explicitly**: [Month] [Day], [Year]
-- **Use this to verify** that any earnings found are within 3 months
-- **Example**: "Today is October 29, 2024"
+| Document type | Filename patterns |
+|---|---|
+| Earnings release | `*release*`, `*earnings*`, `*press*`, `*Q[1-4]*results*` |
+| 10-Q / 10-K | `*10-Q*`, `*10-K*`, `*10Q*`, `*10K*` |
+| Earnings call transcript | `*transcript*`, `*call*`, `*conference*` |
+| Investor presentation | `*presentation*`, `*slides*`, `*investor*deck*` |
+| Supplemental data | `*supplemental*`, `*data*sheet*`, `*financials*.xlsx` |
+| Consensus estimates | `*consensus*`, `*estimates*`, `*street*` |
+| Prior period materials | filenames mentioning a prior quarter (`*Q2*` when current is Q3, etc.) |
 
-**MANDATORY STEP 2: SEARCH FOR "LATEST EARNINGS"**
-- **Use web search** with queries like:
-  - `[Company name] latest earnings results`
-  - `[Company name] most recent quarterly earnings`
-  - `[Ticker symbol] earnings latest quarter`
-- **OR search company investor relations site**:
-  - Go to `investor.[company].com` or `[company].com/investors`
-  - Navigate to "Press Releases", "News", or "Earnings" section
-  - **Sort by date to find MOST RECENT release**
-  - Look for keywords: "earnings", "results", "financial results", "quarterly results"
+Filenames vary. Trust content over filename — if a file with no obvious name turns out (on read) to be the earnings release, classify it as such.
 
-**MANDATORY STEP 3: VERIFY THE RELEASE DATE**
-- **Look at the date of the earnings release found**
-- **Calculate**: Is this date within the last 3 months from today?
-- **If YES** → Proceed to next step
-- **If NO (older than 3 months)** → 🚨 WRONG QUARTER - Search again for more recent
+**Step 1c: Read the quarter and dates from inside each document**
 
-**❌ COMMON MISTAKES TO AVOID:**
-- ❌ Using earnings data from training without searching
-- ❌ Assuming "Q3 2024" is latest based on expectations
-- ❌ Grabbing the first earnings release found without checking the date
-- ❌ Not comparing the release date to today's date
-- ❌ Proceeding when the release is 4+ months old
+For each classified file, record:
+- The quarter / fiscal period stamped in the document (e.g., "Q3 FY2024")
+- The release / filing / transcript date stamped in the document
+- The reporting company name and ticker
 
-**✅ CORRECT APPROACH:**
-- ✅ Check today's date first
-- ✅ Search explicitly for "latest" or "most recent"
-- ✅ Read the actual release date on the materials
-- ✅ Confirm release date is within 3 months of today
-- ✅ If unsure, search again with different terms
+These dates and identifiers will be used in citations and in the report header. **Use whatever dates appear in the files** — do not gate on whether they are "recent enough".
 
-**MANDATORY STEP 4: IDENTIFY THE QUARTER**
-- **Read the title/headline** to identify the quarter (Q1, Q2, Q3, Q4 or fiscal quarter)
-- **Read the release date** on the document itself
-- **Verify both the quarter name AND the date are recent**
+**Step 1d: Build a present / missing inventory**
 
-3. **Alternative search methods if IR site is unclear:**
-   - Web search: `[Company name] latest earnings results`
-   - Web search: `[Company name] most recent quarterly earnings`
-   - Web search: `[Ticker symbol] earnings latest quarter`
-   - SEC EDGAR: Search for company and look at most recent 10-Q or 10-K filing date
+Produce a small table for your own reference and for the report's Sources section:
 
-**Example searches that find latest data:**
-- "Nike latest earnings results" → Returns most recent quarter reported
-- "AAPL most recent quarterly earnings" → Shows latest Apple earnings
-- "Tesla Q3 2024 earnings" → Results confirm Q3 2024 exists
+```
+PRESENT (local files in CWD):
+- Q3_2024_earnings_release.pdf — release dated Nov 7, 2024
+- Q3_2024_10-Q.pdf — filed Nov 8, 2024
+- Q3_2024_earnings_call_transcript.txt — call dated Nov 7, 2024
 
-**Step 1b: Understand Company's Fiscal Calendar**
+MISSING (not provided locally):
+- Investor presentation
+- Pre-earnings consensus estimates
+- Prior-quarter materials for QoQ comparison
+```
 
-After identifying the latest quarter from search, understand the company's fiscal year to interpret it correctly:
+Sections of the report that depend on missing inputs will be marked "N/A — [document type] not provided".
 
-**Common fiscal year patterns:**
-- **Calendar year (CY)**: Q1=Jan-Mar, Q2=Apr-Jun, Q3=Jul-Sep, Q4=Oct-Dec
-- **Nike fiscal**: Q1=Jun-Aug, Q2=Sep-Nov, Q3=Dec-Feb, Q4=Mar-May (May fiscal year-end)
-- **Apple fiscal**: Q1=Oct-Dec, Q2=Jan-Mar, Q3=Apr-Jun, Q4=Jul-Sep (September fiscal year-end)
-- **Walmart fiscal**: Q1=Feb-Apr, Q2=May-Jul, Q3=Aug-Oct, Q4=Nov-Jan (January fiscal year-end)
+**Step 1e: Handle naming variations**
 
-Many companies state their fiscal year in the earnings release header. Search `[company] fiscal year calendar` if needed.
+Companies use different terminology — interpret the period from the document's own header:
 
-**Step 1c: MANDATORY VERIFICATION - Verify Latest Data Obtained**
-
-🛑 **STOP - DO NOT PROCEED until verifying ALL of these:**
-
-- [ ] ✅ **Today's date written down**: [Month] [Day], [Year]
-- [ ] ✅ **Actively searched** using "latest earnings" or "most recent earnings"
-- [ ] ✅ **Earnings release date found**: [Month] [Day], [Year]
-- [ ] ✅ **Verified release is within 3 months of today** (do the math!)
-- [ ] ✅ **Did NOT assume** the quarter based on today's date alone
-- [ ] ✅ **Can see the actual press release** confirming the quarter/period
-- [ ] ✅ **Opened and read** the actual earnings materials (not just assumed they exist)
-
-**🚨 RED FLAGS - If ANY of these are true, WRONG quarter obtained:**
-- 🚨 Release date is more than 90 days old
-- 🚨 Relying on expectations rather than what was FOUND by searching
-- 🚨 Have not actually SEEN a press release or filing confirming this quarter exists
-- 🚨 Used data from training without searching
-- 🚨 Cannot state the exact release date
-- 🚨 Release date found is from 2023 or earlier (when today is 2024+)
-
-**IF ANY RED FLAGS PRESENT**: STOP and search again. Do not proceed with outdated data.
-
-**Step 1c: Handle Naming Variations**
-
-Companies use different terminology - recognize these patterns:
-
-**Quarter terminology:**
 - "Q1 2024", "Q1 FY24", "First Quarter 2024", "1Q24"
 - "Third Quarter Fiscal 2024", "Q3 FY2024", "3Q FY24"
-
-**Earnings release titles:**
-- "[Company] Reports Q3 2024 Results"
-- "[Company] Announces Third Quarter Fiscal 2024 Financial Results"
-- "[Company] Q3 Revenue Grew 15% Year-over-Year"
-
-**SEC filing searches:**
 - Company name may differ from common name (e.g., "Meta Platforms, Inc." vs "Facebook")
-- Search by ticker symbol to find filings reliably
-- Look for most recent 10-Q (quarterly) or 10-K (annual if Q4)
 
-### Step 2: Gather Earnings Materials
+**Step 1f: Verification checklist**
 
-After SEARCHING FOR and confirming the latest quarter, collect the following:
+- [ ] Listed every file in the working directory
+- [ ] Classified each file by document type
+- [ ] Recorded the quarter and release/filing/call dates from inside each document
+- [ ] Built a present / missing inventory
+- [ ] Did NOT web-search, fetch IR pages, or pull from EDGAR
+- [ ] Did NOT supplement with training-data recollections of past results
 
-**⚠️ IMPORTANT: SEARCH for and ACCESS actual documents - do not rely on training data.**
+### Step 2: Inventory the Required Materials
 
-**Primary Materials (REQUIRED):**
-- **Earnings press release** - Usually on company investor relations site under "Press Releases" or "News"
-  - Navigate to IR site and find the actual press release
-  - Search patterns: "[Company name] latest earnings", "[Company name] Q[X] [Year] earnings results"
-  - Look for PDF or HTML version
-  - **Verify the date matches what was found in Step 1** (should be within last 1-3 months)
-  - **Read the actual document** to confirm the quarter and get reported numbers
+Compare your CWD inventory against the list below. For each item, note whether the local file is present; if absent, flag it as a gap.
 
-- **10-Q or 10-K filing** - On SEC EDGAR (sec.gov/edgar/searchedgar/companysearch.html)
-  - Search by ticker symbol
-  - For quarters 1-3: Look for most recent 10-Q
-  - For Q4: Look for 10-K (annual report)
-  - Note: May be filed 1-5 days after earnings release
-  - Direct link format: `https://www.sec.gov/cgi-bin/viewer?accession=[accession-number]`
+**Primary Materials (highly desirable):**
+- **Earnings press release** — the company's own press release for this quarter, as a local PDF/HTML/text file in CWD.
+- **10-Q or 10-K filing** — the SEC filing for this quarter (10-Q for Q1–Q3, 10-K for Q4), as a local file in CWD. Note: in practice the 10-Q is often filed 1–5 days after the release, so the user may or may not have provided it.
+- **Earnings call transcript** — the management call transcript for this quarter, as a local file in CWD. Confirm the transcript's stamped date matches the release date (±1 day); if it doesn't, note the mismatch in the inventory rather than discarding it.
 
-- **Earnings call transcript** - 🚨 **VERIFY THE DATE ON THE TRANSCRIPT** 🚨
-  - **Search for**: "[Company] latest earnings call transcript" or "[Company] Q[X] [Year] earnings call transcript"
-  - **Sources**:
-    - Company IR site (some post transcripts directly)
-    - Seeking Alpha: Search "[Company] [latest quarter] earnings call transcript"
-    - AlphaStreet, Motley Fool (alternative sources)
-  - **CRITICAL DATE CHECK**:
-    - ✅ **Before using ANY transcript, verify the date on the transcript itself**
-    - ✅ **The transcript date MUST match the earnings release date from Step 1**
-    - ✅ **If transcript says "Q2 2023" but release was "Q3 2024", WRONG transcript obtained**
-    - 🚨 **Common mistake**: Grabbing an old transcript without checking the date
-  - If transcript not yet available, listen to webcast replay or note to wait for transcript
+**Supplemental Materials (use if present):**
+- **Investor presentation / slides** — typically a PDF with the management deck.
+- **Supplemental data file** — typically an Excel/CSV with detailed quarterly metrics.
 
-**Supplemental Materials (if available):**
-- **Investor presentation/slides** - Often posted on IR site alongside press release
-  - Usually titled "Q[X] [Year] Earnings Presentation" or "Investor Presentation"
-  - PDF format with slides management presented during earnings call
+**Reference Materials (use if present, otherwise note in report):**
+- **Prior quarter results** — a prior-period release file for QoQ comparison.
+- **Prior year same quarter** — a year-ago release file for YoY comparison.
+- **Prior internal estimates** — a prior earnings update or initiation file containing the estimates being compared against actuals.
+- **Consensus estimates** — a local file containing pre-earnings consensus (Bloomberg/FactSet/Refinitiv/etc. export). If absent, the beat/miss-vs-consensus section is marked N/A; beat/miss-vs-internal-estimate can still proceed if prior estimates were provided.
 
-- **Supplemental data file** - Some companies provide Excel files with detailed metrics
-  - Look for "Supplemental Financial Information" or "Investor Data Sheet"
+**Verification checklist before proceeding to Step 3:**
 
-**Reference Materials (for comparison):**
-- **Prior quarter results** - For QoQ comparison
-  - From prior quarter's earnings release (90 days ago)
-
-- **Prior year same quarter** - For YoY comparison
-  - From same quarter last year (4 quarters ago)
-
-- **Prior estimates** - If this company was previously covered
-  - From last earnings update or initiation report
-  - Check what was estimated for this quarter's metrics
-
-- **Consensus estimates** - From Bloomberg, FactSet, Refinitiv, or Yahoo Finance
-  - CRITICAL: Use estimates from BEFORE earnings release
-  - Look for "as of [date before earnings]" to ensure pre-announcement consensus
-  - Needed for beat/miss analysis
-
-**🛑 MANDATORY VERIFICATION before proceeding to Step 3:**
-
-**DATES - Verify ALL dates match:**
-- [ ] ✅ **Today's date written down**: _______________
-- [ ] ✅ **Earnings release date**: _______________ (MUST be within 3 months of today)
-- [ ] ✅ **Earnings call transcript date**: _______________ (MUST match release date ±1 day)
-- [ ] ✅ **10-Q/10-K filing date**: _______________ (MUST be same quarter as release)
-- [ ] ✅ **ALL materials show SAME quarter** (e.g., all say "Q3 2024", not mixed quarters)
-
-**SEARCH & ACCESS - Verify active search completed:**
-- [ ] ✅ **SEARCHED** for "latest earnings" (not assumed based on current date)
-- [ ] ✅ **ACCESSED** actual earnings press release and read it
-- [ ] ✅ **OPENED** actual earnings call transcript and verified date
-- [ ] ✅ **CONFIRMED** this is the MOST RECENT quarter by checking dates
-- [ ] ✅ Have full financial results (revenue, EPS, margins, etc.) from actual release
-- [ ] ✅ Have pre-earnings consensus estimates with source date
-
-**🚨 RED FLAGS - STOP if ANY of these are true:**
-- 🚨 Did NOT actually search for or access the earnings materials
-- 🚨 Working from memory or training data instead of current documents
-- 🚨 The earnings release date is more than 90 days old
-- 🚨 Cannot state the EXACT DATE of the earnings release
-- 🚨 The transcript date does NOT match the release date
-- 🚨 Materials show different quarters (e.g., release says Q3 but transcript says Q2)
-- 🚨 Grabbed the first result without verifying the date
+- [ ] Every cited document type above has been checked against the CWD inventory
+- [ ] Items present are queued for reading and extraction
+- [ ] Items absent are recorded in the "Not provided locally" list for the report's Sources section
+- [ ] Sections of the report that depend on missing items are flagged for "N/A — [document type] not provided" treatment
+- [ ] No web searches, no external fetches, no EDGAR lookups were performed
 
 ### Step 3: Extract Key Metrics
 
@@ -299,15 +189,15 @@ Analyze profitability:
 
 ### Step 8: Guidance Analysis
 
-If company provided guidance:
-- Compare new guidance to prior guidance
-- Compare to internal estimates and Street estimates
-- Assess credibility (does company have track record of sandbagging? beating?)
-- Identify key assumptions behind guidance
+If the local earnings release / transcript / presentation contains guidance:
+- Compare new guidance to prior guidance — **only if a prior-period file is present in CWD**. If no prior-period file is provided, write "prior guidance not available locally" rather than reconstructing it from memory.
+- Compare to internal estimates and Street estimates **if those files are present in CWD**; otherwise mark those comparisons N/A.
+- Assess credibility based on what the local materials show; do not introduce historical track-record claims unless they are supported by a local file.
+- Identify key assumptions behind guidance as stated in the local materials.
 
-If company did NOT provide guidance:
+If the local materials do NOT contain guidance:
 - Note this explicitly
-- Provide independent outlook based on results and commentary
+- Provide independent outlook based on the results and commentary in the local materials only
 
 ### Step 9: Update Financial Model
 
@@ -427,7 +317,7 @@ See [report-structure.md](report-structure.md) for complete page-by-page templat
 6. Add appendix if needed (Pages 11-12)
 7. Embed all 8-12 charts throughout
 8. Add 1-3 summary tables
-9. Include complete sources section with clickable hyperlinks
+9. Include sources section listing every local file used (and any missing materials flagged)
 
 ### Step 14: Optional - Update XLS Model
 
@@ -475,24 +365,21 @@ Before publishing, verify:
 - [ ] Date is current
 
 **Citations:** ⭐ MANDATORY
-- [ ] Every figure has specific source with document and date
-- [ ] Every table has specific source with document reference
-- [ ] Beat/miss analysis cites consensus source with date
-- [ ] Guidance changes cite current and prior guidance sources
-- [ ] Key statistics have footnotes with specific page/slide references
-- [ ] Sources section lists all materials with URLs
-- [ ] ALL URLs are CLICKABLE HYPERLINKS (not plain text)
-- [ ] Hyperlinks tested and working (Ctrl+Click opens correct page)
-- [ ] All SEC filings hyperlinked to EDGAR viewer
-- [ ] All earnings materials hyperlinked (release, transcript, presentation)
-- [ ] Prior guidance hyperlinked to prior quarter's materials
-- [ ] No raw URLs displayed - all formatted as clickable links
-- [ ] Earnings call quotes cite specific speaker and approximate timestamp
+- [ ] Every figure names a local source file in CWD with the document date
+- [ ] Every table names a local source file in CWD
+- [ ] Beat/miss analysis cites a local consensus file, or is marked N/A if none provided
+- [ ] Guidance changes cite the current and prior local files (or note prior is unavailable)
+- [ ] Key statistics have footnotes naming the local source file (and page/slide if knowable)
+- [ ] Sources section lists every local file used, plus a "Not provided locally" list for gaps
+- [ ] No URLs, EDGAR links, or external hyperlinks anywhere in the document
+- [ ] Every cited filename exactly matches a file present in CWD
+- [ ] Earnings call quotes cite the local transcript filename, the speaker, and approximate location in the transcript
 
-**Timeliness:**
-- [ ] Report published within 24-48 hours of earnings release
-- [ ] All data is from LATEST quarter
-- [ ] Consensus estimates are pre-earnings (not post-earnings)
+**Sourcing discipline:**
+- [ ] All data sourced from local files in the working directory
+- [ ] No web searches, no WebFetch calls, no IR/EDGAR/Seeking Alpha access
+- [ ] Consensus estimates (if present) are pre-earnings; if no consensus file is provided, beat/miss-vs-consensus is marked N/A
+- [ ] Missing-material gaps flagged in the report's Sources section
 
 ### Step 16: Deliver Report
 

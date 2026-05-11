@@ -330,12 +330,12 @@ Source: [Firm Name] estimates
 - Be direct and concise
 - Focus on what's NEW
 
-### 6. Hyperlink Requirements ⭐⭐⭐
-- ALL URLs must be clickable hyperlinks in Word
-- Blue, underlined text that opens on Ctrl+Click
-- Display text meaningful (not raw URL)
-- Every source citation should have clickable link where applicable
-- No plain text URLs - always format as hyperlinks
+### 6. Citation Requirements ⭐⭐⭐
+- Every citation names a **local file** that exists in the working directory
+- No URLs, no EDGAR links, no external hyperlinks
+- Display text is the actual local filename (e.g., `Q3_2024_10-Q.pdf`)
+- Include page / slide numbers where applicable
+- If a referenced document is not present locally, mark the cited claim N/A or note "[document] not provided locally" rather than fabricating a source
 
 ## Citation Examples for Specific Content
 
@@ -343,26 +343,26 @@ Source: [Firm Name] estimates
 ```
 Revenue of $2.45B beat consensus of $2.39B by $60M (2.5%)¹
 
-¹ Bloomberg consensus as of market close November 6, 2024; Company earnings release November 7, 2024
-  [Hyperlink "earnings release" to: https://investor.company.com/news/q3-2024-earnings]
+¹ Consensus: Q3_2024_consensus.xlsx (as of market close November 6, 2024)
+  Reported: Q3_2024_earnings_release.pdf (November 7, 2024)
 ```
+
+If no consensus file is present in CWD, mark beat/miss-vs-consensus as N/A and cite only the local release file.
 
 ### For Guidance:
 ```
 Management raised FY2024 revenue guidance to $9.8-10.0B from prior $9.5-9.7B²
 
-² Q3 2024 Earnings Call, November 7, 2024, CFO prepared remarks
-  [Hyperlink "Earnings Call" to: https://seekingalpha.com/article/...]
-  Prior guidance from Q2 earnings call August 8, 2024
-  [Hyperlink "Q2 earnings call" to August transcript]
+² Current guidance: Q3_2024_earnings_call_transcript.txt (November 7, 2024, CFO prepared remarks)
+  Prior guidance: Q2_2024_earnings_call_transcript.txt (August 8, 2024)
 ```
+
+If the prior-period transcript is not present in CWD, omit the prior-guidance comparison and note "prior guidance not available locally".
 
 ### For Key Metrics:
 ```
 Enterprise customers grew 23% YoY to 845, with net revenue retention at 128%³
 
-³ Q3 2024 10-Q, page 23
-  [Hyperlink "10-Q" to: https://www.sec.gov/cgi-bin/viewer?accession=...]
-  Q3 2024 Investor Presentation slide 8
-  [Hyperlink "Investor Presentation" to PDF]
+³ Q3_2024_10-Q.pdf, page 23
+  Q3_2024_investor_presentation.pdf, slide 8
 ```

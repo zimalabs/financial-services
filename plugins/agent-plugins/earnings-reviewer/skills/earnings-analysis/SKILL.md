@@ -1,6 +1,6 @@
 ---
 name: earnings-analysis
-description: Create professional equity research earnings update reports (8-12 pages, 3,000-5,000 words) analyzing quarterly results for companies already under coverage. Fast-turnaround format focusing on beat/miss analysis, key metrics, updated estimates, and revised thesis. Includes 1-3 summary tables and 8-12 charts. Use when user requests "earnings update", "quarterly update", "earnings analysis", "Q1/Q2/Q3/Q4 results", or post-earnings report.
+description: Create professional equity research earnings update reports (8-12 pages, 3,000-5,000 words) analyzing quarterly results from locally-provided earnings materials in the working directory. Fast-turnaround format focusing on beat/miss analysis, key metrics, updated estimates, and revised thesis. Includes 1-3 summary tables and 8-12 charts. Local-only: no web search; reads release, transcript, 10-Q, presentation files present in CWD. Use when user requests "earnings update", "quarterly update", "earnings analysis", "Q1/Q2/Q3/Q4 results", or post-earnings report.
 ---
 
 # Equity Research Earnings Update
@@ -49,61 +49,53 @@ Use when the user requests:
 
 ### 4. Citations & Source Attribution ⭐⭐⭐ MANDATORY
 
-**CRITICAL**: Properly cite all data with SPECIFIC sources and CLICKABLE HYPERLINKS.
+**CRITICAL**: Properly cite all data using the **local filenames** that are present in the working directory. Do not invent URLs, EDGAR links, or external references. Every citation must name a file that actually exists in CWD.
 
-**Include specific citations WITH CLICKABLE LINKS in every figure and table:**
+**Include specific citations in every figure and table:**
 
 ```
-Source: Q3 2024 10-Q filed November 8, 2024; Company earnings release
-        [Hyperlink "10-Q" to: https://www.sec.gov/cgi-bin/viewer?accession=...]
-        [Hyperlink "earnings release" to: https://investor.company.com/news/q3-2024]
+Source: Q3_2024_10-Q.pdf (filed Nov 8, 2024); Q3_2024_earnings_release.pdf
 ```
 
-**HOW HYPERLINKS SHOULD APPEAR IN WORD:**
-- Document names appear as blue, underlined clickable links
-- Reader can Ctrl+Click to open source directly
-- Not plain text URLs - formatted hyperlinks with display text
+Citations should name the local file exactly as it appears in the working directory, plus the document date (taken from inside the document itself) where useful.
 
-**REQUIRED SOURCES LIST:**
+**REQUIRED SOURCES (only include those actually present in CWD):**
 
-Cite in every earnings update:
-- ✅ Earnings release (with date and URL)
-- ✅ 10-Q filing (with filing date and EDGAR link)
-- ✅ Earnings call transcript (with date)
-- ✅ Investor presentation/supplemental materials (if available)
-- ✅ Consensus estimates source (Bloomberg/FactSet/etc. with date)
-- ✅ Prior guidance (from previous quarter's materials)
+- ✅ Earnings release file (e.g., `*release*.pdf`, `*earnings*.pdf`)
+- ✅ 10-Q or 10-K filing (e.g., `*10-Q*.pdf`)
+- ✅ Earnings call transcript (e.g., `*transcript*.txt`, `*call*.txt`)
+- ✅ Investor presentation / supplemental materials (e.g., `*presentation*.pdf`)
+- ✅ Consensus estimates file (e.g., `*consensus*.xlsx`, `*estimates*.csv`) — only if provided
+- ✅ Prior-period file for prior guidance comparison — only if provided
 
-**REFERENCE SECTION WITH CLICKABLE HYPERLINKS:**
+If any of these are **missing from CWD**, flag them explicitly in the report's Sources section as "not provided" and mark dependent analysis sections as "N/A — [document type] not provided".
 
-Include "Sources" section at end of report:
+**REFERENCE SECTION (local files only):**
+
+Include a "Sources" section at the end of the report listing each local file used:
 
 ```
 SOURCES & REFERENCES
 
-Earnings Materials (Q3 2024):
-• Earnings Release (November 7, 2024)
-  [Hyperlink entire line to: https://investor.company.com/news/q3-2024-earnings]
+Earnings Materials (from working directory):
+• Q3_2024_earnings_release.pdf — dated November 7, 2024
+• Q3_2024_10-Q.pdf — filed November 8, 2024
+• Q3_2024_earnings_call_transcript.txt — dated November 7, 2024
+• Q3_2024_investor_presentation.pdf — dated November 7, 2024
 
-• Form 10-Q (Filed November 8, 2024)
-  [Hyperlink to: https://www.sec.gov/cgi-bin/viewer?accession=...]
-
-• Earnings Call Transcript (November 7, 2024)
-  [Hyperlink to: https://seekingalpha.com/article/...]
-
-• Investor Presentation (November 7, 2024)
-  [Hyperlink to: https://investor.company.com/presentations/q3-2024.pdf]
+Not provided locally:
+• Pre-earnings consensus estimates — sections referencing consensus marked N/A
 ```
 
 **VERIFICATION CHECKLIST:**
-- [ ] Every figure has source with specific document and date
-- [ ] Every table has source with document reference
-- [ ] Beat/miss analysis cites consensus source with date
-- [ ] Guidance changes cite current and prior guidance sources
-- [ ] Key statistics have footnotes
-- [ ] Sources section lists all materials with URLs
-- [ ] ALL URLs are CLICKABLE HYPERLINKS (not plain text)
-- [ ] All SEC filings hyperlinked to EDGAR viewer
+- [ ] Every figure has source naming a local file in CWD
+- [ ] Every table has source naming a local file in CWD
+- [ ] Beat/miss analysis cites a local consensus file, or is marked N/A if none provided
+- [ ] Guidance changes cite current and prior local files, or note prior is unavailable
+- [ ] Key statistics have footnotes naming the local source file
+- [ ] Sources section lists every local file used, plus a "Not provided locally" list for gaps
+- [ ] No URLs, no EDGAR links, no external hyperlinks anywhere in the document
+- [ ] Every cited filename exactly matches a file present in CWD
 
 ### 5. Updated Estimates
 - Update forward estimates based on results
@@ -114,26 +106,26 @@ Earnings Materials (Q3 2024):
 
 The earnings update process follows 5 phases:
 
-### Phase 1: Data Collection (30-60 minutes)
+### Phase 1: Data Collection (15-30 minutes)
 
-**🚨🚨🚨 CRITICAL: TRAINING DATA IS OUTDATED 🚨🚨🚨**
+**🚨 LOCAL-ONLY: USE ONLY FILES IN THE WORKING DIRECTORY 🚨**
 
-**BEFORE STARTING - COMPLETE THESE 4 STEPS IN ORDER:**
-1. **CHECK TODAY'S DATE** - Write down the current date
-2. **SEARCH FOR LATEST** - Use web search: "[Company] latest earnings results"
-3. **VERIFY THE DATE** - Confirm earnings release is within last 3 months
-4. **CHECK TRANSCRIPT DATE** - Verify transcript date matches release date
+This skill operates entirely on locally-provided documents. Do **not** web-search, do **not** call WebFetch, do **not** reach for IR sites or EDGAR. Use only files in the current working directory.
 
-**COMMON MISTAKE**: Using outdated earnings calls from training data instead of searching for the latest.
+**BEFORE STARTING - COMPLETE THESE 3 STEPS IN ORDER:**
+1. **LIST** every file in the working directory (and any subdirectory the user points to).
+2. **CLASSIFY** each file by document type (earnings release, 10-Q/10-K, transcript, investor presentation, supplemental data, consensus estimates, prior-period materials) using filename patterns and a quick content peek.
+3. **INVENTORY** what is present and what is missing. The report will cite only files that are present and will mark sections that depend on missing files as "N/A — [document type] not provided".
 
-**REQUIREMENTS:**
-- ✅ Search for latest earnings - do NOT rely on training data
-- ✅ Write down today's date and the release date found
-- ✅ Verify release date is within 3 months of today
-- ✅ Verify transcript date matches release date
-- ✅ If dates don't match or are old (>3 months), search again
+**Do NOT:**
+- Search the web for "latest earnings"
+- Assume a quarter based on today's date
+- Fetch from EDGAR, IR sites, Seeking Alpha, or any external source
+- Fall back to training-data recollection of past results
 
-**See [references/workflow.md](references/workflow.md)** for detailed search procedures and verification steps.
+**Trust the user's local materials.** Whatever quarter and dates are stamped inside those documents is the period being analyzed.
+
+**See [references/workflow.md](references/workflow.md)** for the file-discovery procedure and classification patterns.
 
 ### Phase 2: Analysis (2-3 hours)
 - Beat/miss analysis for each key metric
@@ -189,7 +181,7 @@ Verify content, formatting, accuracy, and timeliness before delivery.
 - Pages 11-12: Appendix (optional)
 - 8-12 embedded charts
 - 1-3 summary tables
-- Complete sources section with clickable hyperlinks
+- Complete sources section listing every local file used (and any missing materials flagged)
 
 **Optional Deliverable**: XLS model update (optional for earnings updates)
 

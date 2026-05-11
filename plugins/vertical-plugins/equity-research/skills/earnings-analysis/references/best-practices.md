@@ -57,9 +57,11 @@ This document provides examples, tips for success, common mistakes to avoid, and
 
 ❌ **No investment impact**: Must connect results to thesis and rating
 
-❌ **Missing citations**: Every number needs a source with clickable hyperlinks
+❌ **Missing citations**: Every number needs a source naming a local file in CWD
 
-❌ **Plain text URLs**: All URLs must be formatted as clickable hyperlinks
+❌ **Fabricated URLs / EDGAR links**: This skill is local-only — never invent URLs or hyperlinks to external sources
+
+❌ **Web-searching for "latest" data**: Use only the files the user has placed in the working directory
 
 ## Comprehensive Quality Control Checklist
 
@@ -119,42 +121,33 @@ Before delivering earnings update, verify all items below:
 
 ### Citations & Sources Checklist ⭐⭐⭐ MANDATORY
 
+This skill is **local-only**: every citation must name a file that actually exists in the working directory. No URLs, no EDGAR links, no external hyperlinks.
+
 **Figure & Table Citations:**
-- [ ] Every figure has specific source with document name and date
-- [ ] Every table has specific source with document reference
+- [ ] Every figure names a local source file in CWD with the document date
+- [ ] Every table names a local source file in CWD
 - [ ] Source citations include page numbers or slide numbers where applicable
 
 **Beat/Miss Citations:**
-- [ ] Beat/miss analysis cites consensus source (Bloomberg, FactSet, etc.)
-- [ ] Consensus source includes "as of" date (pre-earnings close)
-- [ ] Company reported results cited to earnings release or 10-Q
+- [ ] Beat/miss analysis cites a local consensus file (e.g., `*consensus*.xlsx`), or is marked N/A if no consensus file is provided
+- [ ] Consensus source includes "as of" date taken from inside the file
+- [ ] Company reported results cited to the local earnings release or 10-Q file
 
 **Guidance Citations:**
-- [ ] Current guidance cited to earnings call transcript or release
-- [ ] Prior guidance cited to previous quarter's materials
-- [ ] Both current and prior guidance sources hyperlinked
+- [ ] Current guidance cited to the local earnings call transcript, release, or presentation file
+- [ ] Prior guidance cited to a local prior-period file, or noted as "prior guidance not available locally"
 
 **Statistics & Metrics:**
-- [ ] Key statistics have footnotes with sources
-- [ ] Footnotes reference specific documents and page/slide numbers
-- [ ] Management quotes cite speaker name and source document
-
-**Hyperlinks:** ⭐⭐⭐ CRITICAL
-- [ ] ALL URLs are CLICKABLE HYPERLINKS (not plain text)
-- [ ] Hyperlinks formatted with meaningful display text
-- [ ] Blue, underlined hyperlink formatting in Word document
-- [ ] Hyperlinks tested and working (Ctrl+Click opens correct page)
-- [ ] All SEC filings hyperlinked to EDGAR viewer
-- [ ] All earnings materials hyperlinked (release, transcript, presentation)
-- [ ] Prior quarter materials hyperlinked for comparison
-- [ ] No raw URLs displayed anywhere in document
+- [ ] Key statistics have footnotes naming the local source file
+- [ ] Footnotes reference specific documents and page/slide numbers where applicable
+- [ ] Management quotes cite the speaker name and the local transcript filename
 
 **Sources Section:**
 - [ ] "Sources & References" section included at end of report
-- [ ] Section lists all earnings materials with dates
-- [ ] All materials have clickable hyperlinks
-- [ ] Consensus data sources listed (even if no link for subscription data)
-- [ ] Prior period references included
+- [ ] Section lists every local file used, with its filename and the date taken from inside the document
+- [ ] Missing materials are explicitly listed under a "Not provided locally" subsection
+- [ ] No URLs, EDGAR links, or external hyperlinks anywhere in the document
+- [ ] Every cited filename exactly matches a file present in CWD
 
 ### Accuracy Checklist
 
@@ -172,16 +165,15 @@ Before delivering earnings update, verify all items below:
 - [ ] Quarter/year references are correct
 - [ ] Year notation correct (A for actual, E for estimate)
 
-### Timeliness Checklist
+### Sourcing Discipline Checklist
 
-**Publication Timing:**
-- [ ] Report published within 24-48 hours of earnings release
-- [ ] If later than 48 hours, acknowledged as "delayed reaction"
-- [ ] ✅ **VERIFIED all data is from LATEST quarter by searching for recent earnings**
-- [ ] ✅ **Did NOT rely on knowledge cutoff - actively searched for current data**
-- [ ] Consensus estimates are pre-earnings (not post-earnings)
-- [ ] No outdated information included
-- [ ] Earnings release date is within last 1-3 months (not 6+ months old)
+**Local-only sourcing:**
+- [ ] All data sourced from local files in the working directory
+- [ ] No web searches, no WebFetch calls, no IR / EDGAR / Seeking Alpha access
+- [ ] No supplementation from training-data recollection of past quarters
+- [ ] Consensus estimates (if a local file is provided) are pre-earnings; otherwise beat/miss-vs-consensus is marked N/A
+- [ ] Missing-material gaps flagged in the report's Sources section
+- [ ] Whatever quarter and dates are stamped on the local documents is the period being analyzed — no recency gating
 
 ### Writing Style Checklist
 
@@ -204,13 +196,13 @@ Run through this quick final check before sending report to user:
 
 ### 5-Minute Final Review:
 1. **Page 1**: Rating clear? Price target updated? Key takeaways compelling?
-2. **Numbers**: Do reported results match company's press release exactly?
-3. **Citations**: Spot check 3-4 figures/tables - all have sources with clickable hyperlinks?
+2. **Numbers**: Do reported results match the local press release file exactly?
+3. **Citations**: Spot check 3-4 figures/tables — every source names a local file actually present in CWD?
 4. **Estimates**: Old vs. new clearly shown? Changes explained?
 5. **Charts**: All 8-12 embedded? All numbered and captioned?
 6. **Length**: Is it 8-12 pages (not 6, not 15)?
-7. **Hyperlinks**: Test 3-4 hyperlinks - do they work with Ctrl+Click?
-8. **Timeliness**: Is this being published within 48 hours of earnings?
+7. **Sources section**: Lists every local file used, plus "Not provided locally" gaps?
+8. **No external links**: Document contains no URLs, EDGAR links, or external hyperlinks?
 
 If all items check out, the report is ready for delivery.
 
@@ -241,7 +233,7 @@ Deliverables:
 ✓ 8-12 page earnings update report (DOCX)
 ✓ 8-12 embedded charts
 ✓ Updated estimates with old/new comparison
-✓ Complete sources section with clickable hyperlinks
+✓ Sources section listing every local file used (plus any missing materials flagged)
 ✓ [Optional: Updated XLS financial model]
 
 File: [Company]_Q[X]_[Year]_Earnings_Update.docx
