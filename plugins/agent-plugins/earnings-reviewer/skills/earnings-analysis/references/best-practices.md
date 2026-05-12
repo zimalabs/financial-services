@@ -230,11 +230,11 @@ Rating: [MAINTAINED / RAISED / LOWERED] [RATING]
 Price Target: $XXX (prior: $XXX) - [+/-]XX% upside
 
 Deliverables:
-✓ 8-12 page earnings update report (DOCX)
+✓ 8-12 page earnings update report (PDF)
 ✓ 8-12 embedded charts
 ✓ Updated estimates with old/new comparison
 ✓ Sources section listing every local file used (plus any missing materials flagged)
 ✓ [Optional: Updated XLS financial model]
 
-File: [Company]_Q[X]_[Year]_Earnings_Update.docx
+File: [Company]_Q[X]_[Year]_Earnings_Update.pdf
 ```

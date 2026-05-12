@@ -302,9 +302,11 @@ Create charts focusing on QUARTERLY TRENDS and WHAT'S NEW.
 
 ## Phase 4: Report Creation (2-3 hours)
 
-### Step 13: Create DOCX Report
+### Step 13: Create PDF Report
 
-Use DOCX skill to create 8-12 page report.
+Invoke the `document-skills:pdf` skill to build the 8-12 page PDF. That skill recommends `reportlab` Platypus (`SimpleDocTemplate` + flowables) for multi-page reports — it handles paragraphs, tables, page breaks, and embedded chart images (the PNGs produced in Phase 3) cleanly.
+
+When writing text into Paragraph flowables, use ReportLab XML markup for sub/superscripts (`<sub>`, `<super>`) — never paste Unicode subscript/superscript glyphs, which render as solid boxes in ReportLab's built-in fonts.
 
 See [report-structure.md](report-structure.md) for complete page-by-page templates and formatting requirements.
 
@@ -326,7 +328,7 @@ If a full financial model exists for this company (from initiation), update it w
 - Revised estimates for future quarters
 - Updated valuation
 
-**Note**: For earnings updates, a full XLS file is OPTIONAL (not required like in initiation reports). The DOCX report is the primary deliverable.
+**Note**: For earnings updates, a full XLS file is OPTIONAL (not required like in initiation reports). The PDF report is the primary deliverable.
 
 If creating XLS, include:
 - Quarterly model tab
@@ -385,7 +387,7 @@ Before publishing, verify:
 
 Provide user with:
 
-1. **DOCX file**: `[Company]_Q[X]_[Year]_Earnings_Update.docx`
+1. **PDF file**: `[Company]_Q[X]_[Year]_Earnings_Update.pdf`
 2. **Chart files**: All PNG/JPG charts (for reference)
 3. **Optional XLS**: Updated financial model if maintained
 

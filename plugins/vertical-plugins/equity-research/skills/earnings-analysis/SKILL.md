@@ -1,6 +1,6 @@
 ---
 name: earnings-analysis
-description: Create professional equity research earnings update reports (8-12 pages, 3,000-5,000 words) analyzing quarterly results from locally-provided earnings materials in the working directory. Fast-turnaround format focusing on beat/miss analysis, key metrics, updated estimates, and revised thesis. Includes 1-3 summary tables and 8-12 charts. Local-only: no web search; reads release, transcript, 10-Q, presentation files present in CWD. Use when user requests "earnings update", "quarterly update", "earnings analysis", "Q1/Q2/Q3/Q4 results", or post-earnings report.
+description: Create professional equity research earnings update reports as PDFs (8-12 pages, 3,000-5,000 words) analyzing quarterly results from locally-provided earnings materials in the working directory. Fast-turnaround format focusing on beat/miss analysis, key metrics, updated estimates, and revised thesis. Includes 1-3 summary tables and 8-12 charts. Local-only: no web search; reads release, transcript, 10-Q, presentation files present in CWD. Use when user requests "earnings update", "quarterly update", "earnings analysis", "Q1/Q2/Q3/Q4 results", or post-earnings report.
 ---
 
 # Equity Research Earnings Update
@@ -149,7 +149,7 @@ Create 8-12 charts focusing on quarterly trends and what's new:
 **See [references/workflow.md](references/workflow.md)** for chart specifications.
 
 ### Phase 4: Report Creation (2-3 hours)
-Create 8-12 page DOCX report with specific structure.
+Create 8-12 page PDF report with specific structure.
 
 **See [references/report-structure.md](references/report-structure.md)** for complete page-by-page templates and formatting requirements.
 
@@ -168,9 +168,9 @@ Verify content, formatting, accuracy, and timeliness before delivery.
 
 ## Output Specification
 
-**Primary Deliverable**: DOCX report (8-12 pages)
-**File Name**: `[Company]_Q[Quarter]_[Year]_Earnings_Update.docx`
-**Example**: `Nike_Q2_FY24_Earnings_Update.docx`
+**Primary Deliverable**: PDF report (8-12 pages)
+**File Name**: `[Company]_Q[Quarter]_[Year]_Earnings_Update.pdf`
+**Example**: `Nike_Q2_FY24_Earnings_Update.pdf`
 
 **Contents:**
 - Page 1: Summary with rating, price target, key takeaways
@@ -205,7 +205,7 @@ Verify content, formatting, accuracy, and timeliness before delivery.
 Detailed Phase 1-5 instructions with step-by-step procedures for data collection, analysis, chart generation, and report creation.
 
 ### references/report-structure.md
-Complete page-by-page templates, table formats, and formatting requirements for the DOCX report.
+Complete page-by-page templates, table formats, and formatting requirements for the PDF report.
 
 ### references/best-practices.md
 Examples of good/bad headlines, tips for success, common mistakes to avoid, and comprehensive quality checklist.
@@ -214,7 +214,7 @@ Examples of good/bad headlines, tips for success, common mistakes to avoid, and 
 
 **Required:**
 - Python (matplotlib, pandas, seaborn) for chart generation
-- DOCX skill for report creation
+- `document-skills:pdf` skill for PDF report creation (uses `reportlab` Platypus for multi-page layout with text, tables, and embedded chart images)
 
 **Optional:**
 - XLS skill for model updates (not required for earnings updates)
